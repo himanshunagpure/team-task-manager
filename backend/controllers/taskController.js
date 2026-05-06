@@ -177,8 +177,6 @@ export const updateTask =
     }
   };
 
-
-
 export const updateTaskStatus =
   async (req, res) => {
     try {

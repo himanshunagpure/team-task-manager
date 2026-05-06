@@ -1,7 +1,7 @@
 import Project from "../models/Project.js";
 import { randomBytes } from "crypto"; // ✅ FIXED
 import mongoose from "mongoose";
-import ProjectInvite from "../models/ProjectInvite.js";
+
 import Notification from "../models/Notification.js";
 import User from "../models/User.js";
 
@@ -15,6 +15,7 @@ import {
   INTERNAL_SERVER_ERROR,
   FORBIDDEN, //  FIXED (you were missing this)
 } from "../utils/statusCode.js";
+import ProjectInvite from "../models/ProjectInvite.js";
 
 /* ================= CREATE PROJECT ================= */
 export const createProject = async (req, res) => {
@@ -266,6 +267,98 @@ export const acceptProjectInvitation = async (req, res) => {
     return res.status(INTERNAL_SERVER_ERROR).json({
       success: false,
       message: "Unable to accept invitation",
+    });
+  }
+};
+
+/* ================= REMOVE MEMBER FROM PROJECT ================= */
+export const removeProjectMember = async (req, res) => {
+  try {
+    const { projectId, memberId } = req.params;
+
+    if (!projectId || !memberId) {
+      return res.status(BAD_REQUEST).json({
+        success: false,
+        message: "Project ID and Member ID are required",
+      });
+    }
+
+    const project = await Project.findById(projectId);
+
+    if (!project) {
+      return res.status(NOT_FOUND).json({
+        success: false,
+        message: "Project not found",
+      });
+    }
+
+    const memberIndex = project.members.findIndex(
+      (member) => member.user.toString() === memberId
+    );
+
+    if (memberIndex === -1) {
+      return res.status(NOT_FOUND).json({
+        success: false,
+        message: "Member not found in project",
+      });
+    }
+
+    project.members.splice(memberIndex, 1);
+    await project.save();
+
+    return res.status(OK).json({
+      success: true,
+      message: "Member removed successfully",
+      data: project,
+    });
+  } catch (error) {
+    console.error("Remove Member Error:", error);
+    return res.status(INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Unable to remove member",
+    });
+  }
+};
+
+/* ================= GET INVITE BY TOKEN ================= */
+export const getInviteByToken = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    if (!token) {
+      return res.status(BAD_REQUEST).json({
+        success: false,
+        message: "Invitation token is required",
+      });
+    }
+
+    const invite = await ProjectInvite.findOne({ token })
+      .populate("project", "projectName")
+      .populate("invitedBy", "fullName email");
+
+    if (!invite) {
+      return res.status(NOT_FOUND).json({
+        success: false,
+        message: "Invitation not found",
+      });
+    }
+
+    if (invite.expiresAt < new Date()) {
+      return res.status(BAD_REQUEST).json({
+        success: false,
+        message: "Invitation has expired",
+      });
+    }
+
+    return res.status(OK).json({
+      success: true,
+      data: invite,
+    });
+  } catch (error) {
+    console.error("Get Invite Error:", error);
+    return res.status(INTERNAL_SERVER_ERROR).json({
+      success: false,
+      message: "Unable to fetch invitation",
     });
   }
 };
