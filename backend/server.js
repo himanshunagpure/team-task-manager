@@ -1,15 +1,19 @@
+import crypto from "crypto";
+
+if (!global.crypto) {
+  global.crypto = crypto.webcrypto;
+}
+
 import dotenv from "dotenv";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
-import "node:crypto"; // Ensure crypto is available globally
+import express from "express";
+import cors from "cors";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 dotenv.config({ path: join(__dirname, ".env") });
-
-import express from "express";
-import cors from "cors";
 
 import connectDatabase from "./config/db.js";
 
