@@ -1,5 +1,7 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config({ path: "./.env" });
+
+import express from "express";
 import cors from "cors";
 
 import connectDatabase from "./config/db.js";
@@ -10,8 +12,6 @@ import taskRouter from "./routes/taskRoutes.js";
 import dashboardRouter from "./routes/dashboardRoutes.js";
 import inviteRouter from "./routes/inviteRoutes.js";
 import notificationRouter from "./routes/notificationRoutes.js";
-
-dotenv.config();
 
 const app = express();
 
