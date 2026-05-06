@@ -69,7 +69,7 @@ export default function SignupPage() {
                 required: 'Name is required',
                 minLength: { value: 2, message: 'Too short' },
               })}
-              placeholder="John Smith"
+              placeholder="name"
               className={inputClass(errors.fullName)}
             />
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none
