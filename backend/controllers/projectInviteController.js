@@ -1,6 +1,6 @@
 import { randomBytes } from "crypto";
 
-import ProjectInvite from "../models/ProjectInvite.js";
+
 import User from "../models/User.js";
 import { sendEmail } from "../utils/sendEmail.js";
 
@@ -9,6 +9,7 @@ import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
 } from "../utils/statusCode.js";
+import ProjectInvite from "../models/ProjectInvite.js";
 
 export const inviteMemberToProject = async (req, res) => {
   try {
