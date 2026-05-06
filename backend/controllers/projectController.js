@@ -1,5 +1,5 @@
 import Project from "../models/Project.js";
-import { randomBytes } from "crypto"; // ✅ FIXED
+import { randomBytes } from "node:crypto";
 import mongoose from "mongoose";
 
 import Notification from "../models/Notification.js";

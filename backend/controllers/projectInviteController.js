@@ -1,6 +1,4 @@
-import { randomBytes } from "crypto";
-
-
+import { randomBytes } from "node:crypto";
 import User from "../models/User.js";
 import { sendEmail } from "../utils/sendEmail.js";
 
