@@ -1,6 +1,7 @@
 // models/User.js
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import "node:crypto"; // Ensure crypto is available for bcryptjs
 
 const userSchema = new mongoose.Schema(
   {
