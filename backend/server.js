@@ -27,7 +27,10 @@ import notificationRouter from "./routes/notificationRoutes.js";
 const app = express();
 
 connectDatabase();
-app.use(cors());
+app.use(cors({
+  origin: "http://52.66.138.181:3000",
+  credentials: true
+}));
 
 app.use(express.json());
 
