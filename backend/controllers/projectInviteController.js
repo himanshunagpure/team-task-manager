@@ -9,7 +9,7 @@ import {
   BAD_REQUEST,
   INTERNAL_SERVER_ERROR,
 } from "../utils/statusCode.js";
-import ProjectInvite from "../models/ProjectInvite.js";
+import ProjectInvite from "../models/projectInvite.js";
 
 export const inviteMemberToProject = async (req, res) => {
   try {

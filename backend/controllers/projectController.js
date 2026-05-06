@@ -15,7 +15,7 @@ import {
   INTERNAL_SERVER_ERROR,
   FORBIDDEN, //  FIXED (you were missing this)
 } from "../utils/statusCode.js";
-import ProjectInvite from "../models/ProjectInvite.js";
+import ProjectInvite from "../models/projectInvite.js";
 
 /* ================= CREATE PROJECT ================= */
 export const createProject = async (req, res) => {

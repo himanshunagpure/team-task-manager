@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ProjectInvite =
+const projectInviteSchema =
   new mongoose.Schema(
     {
       email: {
@@ -58,10 +58,10 @@ const ProjectInvite =
     }
   );
 
-// const ProjectInvite =
-//   mongoose.model(
-//     "ProjectInvite",
-//     projectInviteSchema
-//   );
+const ProjectInvite =
+  mongoose.model(
+    "ProjectInvite",
+    projectInviteSchema
+  );
 
 export default ProjectInvite;

@@ -1,5 +1,5 @@
 import Notification from "../models/Notification.js";
-import ProjectInvite from "../models/ProjectInvite.js";
+import ProjectInvite from "../models/projectInvite.js";
 import Project from "../models/Project.js";
 import {
   OK,
